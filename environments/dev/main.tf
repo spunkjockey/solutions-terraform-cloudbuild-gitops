@@ -15,10 +15,11 @@
 
 locals {
   env = "dev"
+  region = "us-east4"
 }
 
 provider "google" {
-  project = "${var.project}"
+  project = var.project
 }
 
 #module "vpc" {
@@ -41,6 +42,13 @@ provider "google" {
 
 module "event_driven_bq" {
   source  = "../../modules/event_driven_bq"
-  project = "${var.project}"
-  env     = "${local.env}"
+  project = var.project
+  env     = local.env
+}
+
+module "event_driven_bq" {
+  source  = "../../modules/event_driven_cloud_functions"
+  project = var.project
+  env     = local.env
+  region  = local.region
 }
