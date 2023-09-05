@@ -46,7 +46,7 @@ module "event_driven_bq" {
   env     = local.env
 }
 
-module "event_driven_bq" {
+module "event_driven_cloud_functions" {
   source  = "../../modules/event_driven_cloud_functions"
   project = var.project
   env     = local.env
