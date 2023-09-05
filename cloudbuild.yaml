@@ -92,8 +92,7 @@ steps:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
-        ls -l
-        export GOOGLE_CREDENTIALS=secrets/shared-project-eta-bc24e5ff4fd2.json.decrypted
+        export GOOGLE_CREDENTIALS=$(cat secrets/shared-project-eta-bc24e5ff4fd2.json.decrypted | tr -s '\n' ' ')
         cd environments/$BRANCH_NAME
         terraform apply -auto-approve
       else
