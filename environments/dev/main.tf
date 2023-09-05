@@ -40,11 +40,11 @@ provider "google" {
 #  subnet  = "${module.vpc.subnet}"
 #}
 
-module "event_driven_bq" {
-  source  = "../../modules/event_driven_bq"
-  project = var.project
-  env     = local.env
-}
+#module "event_driven_bq" {
+#  source  = "../../modules/event_driven_bq"
+#  project = var.project
+#  env     = local.env
+#}
 
 module "event_driven_cloud_functions" {
   source  = "../../modules/event_driven_cloud_functions"
