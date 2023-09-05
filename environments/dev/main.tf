@@ -18,7 +18,6 @@ locals {
 }
 
 provider "google" {
-  credentials = file("./secrets/shared-project-eta-bc24e5ff4fd2.json.decrypted")
   project = "${var.project}"
 }
 
