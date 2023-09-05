@@ -66,6 +66,7 @@ steps:
   - '-c'
   - | 
       if [ -d "environments/$BRANCH_NAME/" ]; then
+        export GOOGLE_CREDENTIALS=$(cat secrets/shared-project-eta-bc24e5ff4fd2.json.decrypted | tr -s '\n' ' ')
         cd environments/$BRANCH_NAME
         terraform plan
       else
