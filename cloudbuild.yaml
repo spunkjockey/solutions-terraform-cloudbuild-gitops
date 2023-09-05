@@ -24,6 +24,16 @@ steps:
       echo "$BRANCH_NAME"
       echo "***********************"
 
+- name: gcr.io/cloud-builders/gcloud
+  args:
+    - kms
+    - decrypt
+    - "--ciphertext-file=./secrets/shared-project-eta-bc24e5ff4fd2.json.encrypted"
+    - "--plaintext-file=./secrets/shared-project-eta-bc24e5ff4fd2.json.decrypted"
+    - "--location=global"
+    - "--keyring=cloudbuild"
+    - "--key=terraform"
+
 - id: 'tf init'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
@@ -82,6 +92,7 @@ steps:
   - '-c'
   - |
       if [ -d "environments/$BRANCH_NAME/" ]; then
+        export GOOGLE_CREDENTIALS=./secrets/shared-project-eta-bc24e5ff4fd2.json.decrypted
         cd environments/$BRANCH_NAME
         terraform apply -auto-approve
       else
