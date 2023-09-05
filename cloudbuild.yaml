@@ -75,6 +75,16 @@ steps:
 # [END tf-plan]
 
 # [START tf-apply]
+- name: gcr.io/cloud-builders/gcloud
+  args:
+  - kms
+  - decrypt
+  - "--ciphertext-file=secrets/shared-project-eta-bc24e5ff4fd2.json.encrypted"
+  - "--plaintext-file=secrets/shared-project-eta-bc24e5ff4fd2.json"
+  - "--location=global"
+  - "--keyring=cloudbuild"
+  - "--key=terraform"
+
 - id: 'tf apply'
   name: 'hashicorp/terraform:1.0.0'
   entrypoint: 'sh'
@@ -107,3 +117,8 @@ steps:
 #        echo "*******************************************************************************"
 #      fi
 # [END tf-destroy]
+availableSecrets:
+  inline:
+    - kmsKeyName: projects/shared-project-eta/locations/global/keyRings/cloudbuild/cryptoKeys/terraform
+      envMap:
+        SVC_TERRAFORM: 'SVC_TERRAFORM'
