@@ -117,8 +117,3 @@ steps:
 #        echo "*******************************************************************************"
 #      fi
 # [END tf-destroy]
-availableSecrets:
-  inline:
-    - kmsKeyName: projects/shared-project-eta/locations/global/keyRings/cloudbuild/cryptoKeys/terraform
-      envMap:
-        SVC_TERRAFORM: 'SVC_TERRAFORM'
